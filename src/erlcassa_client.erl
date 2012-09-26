@@ -36,6 +36,11 @@
 % ============================ \/ API ======================================================================
 
 % connect
+
+-spec connect(Opts::list()) -> {ok, Client::term()} | {error, Reason::term()}.
+connect(Opts) ->
+	connect(proplists:get_value(host, Opts, "127.0.0.1"), proplists:get_value(port, Opts, 9160)).
+
 -spec connect(Host::string(), Port::non_neg_integer()) -> {ok, Client::term()} | {error, Reason::term()}.
 connect(Host, Port) ->
 	case catch thrift_client_util:new(Host, Port, cassandra_thrift, [{framed, true}]) of
